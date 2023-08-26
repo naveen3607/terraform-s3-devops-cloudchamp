@@ -12,11 +12,21 @@ resource "aws_s3_bucket_public_access_block" "main" {
   restrict_public_buckets = false
 }
 
+resource "aws_s3_bucket_acl" "main" {
+  depends_on = [
+    aws_s3_bucket_public_access_block.main,
+  ]
+
+  bucket = aws_s3_bucket.main.id
+  acl    = "public-read"
+}
+
 resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.main.id
   key = "index.html"
   source = "index.html"
   content_type = "text/html"
+  acl = "public-read"
 }
 
 resource "aws_s3_object" "error" {
@@ -24,12 +34,14 @@ resource "aws_s3_object" "error" {
   key = "error.html"
   source = "error.html"
   content_type = "text/html"
+  acl = "public-read"
 }
 
 resource "aws_s3_object" "profile" {
   bucket = aws_s3_bucket.main.id
   key = "Naveen.jpg"
   source = "Naveen.jpg"
+  acl = "public-read"
 }
 
 resource "aws_s3_bucket_website_configuration" "website" {
@@ -41,4 +53,5 @@ resource "aws_s3_bucket_website_configuration" "website" {
   error_document {
     key = "error.html"
   }
+  depends_on = [ aws_s3_bucket_acl.main ]
 }
