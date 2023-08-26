@@ -16,7 +16,6 @@ resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.main.id
   key = "index.html"
   source = "index.html"
-  acl = "public-read"
   content_type = "text/html"
 }
 
@@ -24,7 +23,6 @@ resource "aws_s3_object" "error" {
   bucket = aws_s3_bucket.main.id
   key = "error.html"
   source = "error.html"
-  acl = "public-read"
   content_type = "text/html"
 }
 
@@ -32,7 +30,6 @@ resource "aws_s3_object" "profile" {
   bucket = aws_s3_bucket.main.id
   key = "Naveen.jpg"
   source = "Naveen.jpg"
-  acl = "public-read"
 }
 
 resource "aws_s3_bucket_website_configuration" "website" {
