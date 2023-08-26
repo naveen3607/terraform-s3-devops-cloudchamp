@@ -1,3 +1,3 @@
 variable "bucket_name" {
-  default = "devops-practice"
+  default = "tf-devops-cloudchamp"
 }
