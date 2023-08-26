@@ -11,12 +11,3 @@ resource "aws_s3_bucket_public_access_block" "main" {
   ignore_public_acls      = false
   restrict_public_buckets = false
 }
-
-resource "aws_s3_bucket_acl" "main" {
-  depends_on = [
-    aws_s3_bucket_public_access_block.main,
-  ]
-
-  bucket = aws_s3_bucket.main.id
-  acl    = "public-read"
-}
